@@ -1,0 +1,23 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: emerald --default;
+}
+
+
+.card {
+  padding: 0 !important;
+}
+
+.card-property {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;          /* space between icon and text */
+  flex-wrap: wrap;     /* allows long text to wrap to next line */
+}
+
+.card-property p {
+  margin: 0;           /* remove default paragraph margin */
+  flex: 1 1 auto;      /* allow text to take remaining space and wrap */
+  word-break: break-word; /* break long words if needed */
+}
