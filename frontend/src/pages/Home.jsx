@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner'
 import Credit from '../components/Credit'
 import WarningModal from '../components/WarningModal'
 import { useNavigate } from 'react-router'
+import NoData from '../components/NoData'
 
 
 
@@ -18,14 +19,18 @@ const [hasReachedMaxVotes, setHasReachedMaxVotes] = useState(false)
 
 useEffect(() => {
   Config()
-  // Check localStorage for voted items
-  const votedItems = JSON.parse(localStorage.getItem('voted')) || []
-  // If user has voted 2 or more times, set flag to true
-  setHasReachedMaxVotes(votedItems.length >= 2)
+
 }, []) // Check on component mount
 
+
+useEffect(() => {
+  const votedItems = JSON.parse(localStorage.getItem('voted')) || []
+  const activeVotes = data.filter(item => votedItems.includes(item._id)).length
+  setHasReachedMaxVotes(activeVotes >= 2)
+}, [data])
+
 const getItems = async () => {
-  const response = await axios.get('http://localhost:3000/api/items')
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/items`)
   console.log(response)
   setData(response.data)
   setLoading(false)
@@ -35,7 +40,7 @@ const getItems = async () => {
 
 const navigate = useNavigate()
 const Config = async () =>{
-  const response = await axios.get("http://localhost:3000/api/config")
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/config`)
     if (response.status === 200) {
 console.log(response.data)
 const {maintenance, message, enablemessage} = response.data
@@ -81,7 +86,7 @@ useEffect(()=>{
   forceHideAction={hasReachedMaxVotes}
 />
 )))
-: (<span>nodata</span>)}
+: (<NoData/>)}
 
 
 <Credit></Credit>

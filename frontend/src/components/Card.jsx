@@ -41,7 +41,7 @@ const Card = ({ item, forceHideAction }) => {
 
   const increment = async () => {
     try {
-      const response = await axios.put(`http://localhost:3000/api/items/${ITEMID}`);
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/items/${ITEMID}`);
       if (response.status === 200) {
         setTimeout(() => {
           addToStorage();
@@ -96,7 +96,7 @@ const Card = ({ item, forceHideAction }) => {
           <div className="mt-1 flex flex-wrap items-center gap-2">
             <span className="flex items-center gap-1">
               <Vote />
-              <span>{item.votes} glasova</span>
+              <span>Broj glasova: <span className='font-bold'>{item.votes}</span></span>
             </span>
           </div>
 

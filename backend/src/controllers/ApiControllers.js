@@ -51,6 +51,13 @@ const incrementItem = async (req,res) =>{
     }
 }
 
+const DeleteAll = async (req, res) =>{
+    try {
+        await ApiModel.deleteMany({})
+    res.status(200)
+    } catch (error) {
+        res.status(500).json({message:"Failed to delete all."})
+    }
+}
 
-
-module.exports = { getItems, addItem, incrementItem }
+module.exports = { getItems, addItem, incrementItem, DeleteAll }

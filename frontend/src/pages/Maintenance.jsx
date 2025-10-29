@@ -11,7 +11,7 @@ Config()
 
 
   const Config = async () =>{
-  const response = await axios.get("http://localhost:3000/api/config")
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/config`)
     if (response.status === 200) {
 console.log(response.data)
 const {maintenance} = response.data

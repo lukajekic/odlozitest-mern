@@ -46,7 +46,7 @@ const confirmSubmit = () =>{
 
 const objlast = prepareObj(date, title, subject)
   console.log("last obj", objlast)
-  axios.post("http://localhost:3000/api/items/", objlast).then((response)=>{
+  axios.post(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/items`, objlast).then((response)=>{
     console.log(response)
     if (response.status === 201) {
       toast.success("USPESAN UNOS")
@@ -63,7 +63,7 @@ const objlast = prepareObj(date, title, subject)
 
 
 const populateConfig = async () =>{
-  const response = await axios.get("http://localhost:3000/api/config")
+  const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/config`)
 if (response.status === 200) {
   setconfigobj(response.data)
   console.log(response.data)
@@ -87,7 +87,7 @@ const confirmConfigEdit = async () => {
   }
 
 try {
-    const response = await axios.put("http://localhost:3000/api/config/690270cba549a5a9da9f3b48", body)
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL_PREFIX}/config/690270cba549a5a9da9f3b48`, body)
   if (response.status === 200) {
     toast.success("USPESNO!")
   } else {
